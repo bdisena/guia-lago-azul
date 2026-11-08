@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
+@theme {
+  --color-lago-50: #eef7f9;
+  --color-lago-100: #d5ecf1;
+  --color-lago-200: #a9d7e2;
+  --color-lago-500: #1f8aa3;
+  --color-lago-600: #136f86;
+  --color-lago-700: #0f586b;
+  --color-lago-900: #0a3340;
+  --color-ouro-50: #fdf8ec;
+  --color-ouro-200: #f1dca1;
+  --color-ouro-400: #d9ad3c;
+  --color-ouro-600: #a87b14;
+  --color-zap: #1fa855;
+  --color-zap-dark: #178a45;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg: #f6f8f9;
+  --card: #ffffff;
+  --ink: #0f1f26;
+  --muted: #5b6b72;
+  --line: #e3e9ec;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
 }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+}
+
+.muted { color: var(--muted); }
+
+.input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  font-size: 1rem;
+  outline: none;
+}
+.input:focus { border-color: var(--color-lago-500); box-shadow: 0 0 0 3px var(--color-lago-100); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  border-radius: 0.75rem; padding: 0.7rem 1rem; font-weight: 600; transition: background .15s, transform .05s;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--color-lago-600); color: #fff; }
+.btn-primary:hover { background: var(--color-lago-700); }
+.btn-ghost { border: 1px solid var(--line); background: #fff; }
+.btn-zap { background: var(--color-zap); color: #fff; }
+.btn-zap:hover { background: var(--color-zap-dark); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
