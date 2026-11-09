@@ -3,38 +3,34 @@ import type { Vantagem } from "@/lib/types";
 import { waLink, APP_NAME } from "@/lib/whatsapp";
 import { track } from "@/lib/track";
 import { useCondo } from "./CondoProvider";
+import { IconArrow } from "./Icons";
 
 export function ClubeList({ vantagens }: { vantagens: Vantagem[] }) {
   const { atual } = useCondo();
   if (!vantagens.length)
     return (
-      <div className="card p-6 text-center">
-        <p className="text-4xl">🎁</p>
-        <p className="mt-2 font-semibold">Novos parceiros chegando em breve</p>
-        <p className="muted mt-1 text-sm">Restaurantes, lava-rápidos, pet shops e mais, com condições exclusivas para moradores.</p>
-        <a href="/anuncie" className="btn btn-ghost mt-4">Tenho um negócio e quero participar</a>
+      <div className="border border-[var(--line-strong)] p-7">
+        <p className="eyebrow">Em breve</p>
+        <p className="mt-3 font-display text-[26px] leading-tight">Uma seleção de privilégios está sendo preparada.</p>
+        <p className="muted mt-3 text-[14px] leading-relaxed">Restaurantes, serviços automotivos, pet care e mais, com condições reservadas aos moradores dos cinco residenciais.</p>
+        <a href="/anuncie" className="link-arrow mt-6 text-[var(--ink)]">Quero oferecer um privilégio <IconArrow className="h-4 w-4" /></a>
       </div>
     );
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-4">
       {vantagens.map((v) => {
         const href = v.whatsapp
-          ? waLink(v.whatsapp, `Olá! Sou morador(a) ${atual ? `do ${atual.nome}` : "dos condomínios"} e vi a oferta "${v.oferta}" no ${APP_NAME}.`)
+          ? waLink(v.whatsapp, `Olá! Sou morador(a) ${atual ? `do ${atual.nome}` : "dos condomínios"} e vi o privilégio "${v.oferta}" no ${APP_NAME}.`)
           : v.link;
         return (
-          <li key={v.id} className="card p-4">
-            <div className="flex items-start gap-3">
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-ouro-50 text-2xl">🎁</div>
-              <div className="flex-1">
-                <p className="font-bold">{v.parceiro}</p>
-                {v.segmento && <p className="muted text-xs">{v.segmento}</p>}
-                <p className="mt-1 text-[15px] font-medium text-lago-700">{v.oferta}</p>
-              </div>
-            </div>
+          <li key={v.id} className="card p-6">
+            <p className="eyebrow">{v.segmento ?? "Privilégio"}</p>
+            <p className="mt-2 font-display text-[24px] leading-tight">{v.parceiro}</p>
+            <p className="mt-2 text-[15px] leading-relaxed">{v.oferta}</p>
             {href && (
-              <a href={href} target="_blank" rel="noopener noreferrer" className="btn btn-zap mt-3 w-full text-sm"
+              <a href={href} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-5 w-full"
                 onClick={() => track("click_clube", { clube: v.id, condominio: atual?.slug })}>
-                Quero esta vantagem
+                Utilizar privilégio
               </a>
             )}
           </li>

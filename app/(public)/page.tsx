@@ -10,8 +10,9 @@ export default async function Home() {
     <>
       <Header />
       <HomeCatalog catalogo={catalogo} />
-      <footer className="muted px-4 pt-8 text-center text-xs">
-        <a href="/sobre" className="underline">Sobre o guia, privacidade e remoção de cadastro</a>
+      <footer className="mx-4 mt-12 border-t border-[var(--line)] pt-6 text-center">
+        <p className="font-display text-[15px] italic text-[var(--muted)]">Lago Azul · Lagoa Bonita · Portal do Lago · Recanto dos Pássaros · Jacarandá</p>
+        <a href="/sobre" className="eyebrow mt-3 inline-block hover:text-[var(--ink)]">Sobre o Guia · Privacidade</a>
       </footer>
     </>
   );

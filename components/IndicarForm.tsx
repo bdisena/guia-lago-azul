@@ -31,9 +31,9 @@ export function IndicarForm({ categorias }: { categorias: Categoria[] }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-6">
       {estado === "ok" && (
-        <p className="rounded-lg bg-green-50 p-3 text-sm text-green-800">Obrigado! Sua indicação vai para a curadoria e aparece no guia após aprovação. Quer indicar mais alguém?</p>
+        <p className="fade-up border-l-2 border-[var(--ink)] bg-white p-4 text-[14px] leading-relaxed">Obrigado! Sua indicação vai para a curadoria e aparece no guia após aprovação. Quer indicar mais alguém?</p>
       )}
       <Field label="Nome do prestador ou empresa">
         <input name="nome_prestador" required minLength={2} maxLength={120} className="input" />
@@ -44,7 +44,7 @@ export function IndicarForm({ categorias }: { categorias: Categoria[] }) {
       <Field label="Categoria">
         <select name="categoria" className="input" defaultValue="">
           <option value="">Outra (descreva abaixo)</option>
-          {categorias.map((c) => <option key={c.id} value={c.id}>{c.icone} {c.nome}</option>)}
+          {categorias.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
         </select>
       </Field>
       <Field label="Se outra, qual serviço?">
@@ -53,7 +53,7 @@ export function IndicarForm({ categorias }: { categorias: Categoria[] }) {
       <Field label="Por que você indica? (opcional)">
         <textarea name="comentario" maxLength={1000} rows={3} className="input" placeholder="Pontual, preço justo, deixou tudo limpo…" />
       </Field>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-5">
         <Field label="Seu nome (opcional)"><input name="morador" maxLength={120} className="input" /></Field>
         <Field label="Condomínio">
           <select name="condominio" className="input" defaultValue={atual?.slug ?? ""} key={atual?.slug ?? "x"}>
@@ -63,8 +63,8 @@ export function IndicarForm({ categorias }: { categorias: Categoria[] }) {
         </Field>
       </div>
       <p className="muted text-xs">Seu nome não é exibido publicamente. Mostramos apenas “Indicado por moradores do [condomínio]”.</p>
-      {estado === "erro" && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{erro}</p>}
-      <button disabled={estado === "enviando"} className="btn btn-primary w-full py-3.5 disabled:opacity-60">
+      {estado === "erro" && <p className="border-l-2 border-red-700 bg-red-50 p-3 text-sm text-red-800">{erro}</p>}
+      <button disabled={estado === "enviando"} className="btn btn-primary w-full !py-4 disabled:opacity-60">
         {estado === "enviando" ? "Enviando…" : "Enviar indicação"}
       </button>
     </form>

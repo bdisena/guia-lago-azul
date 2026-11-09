@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { PageIntro } from "@/components/PageIntro";
 import { OrcamentoForm } from "@/components/OrcamentoForm";
 import { getCatalogo } from "@/lib/data";
 
@@ -9,12 +10,9 @@ export default async function OrcamentoPage({ searchParams }: { searchParams: Pr
   const { categorias } = await getCatalogo();
   return (
     <>
-      <Header back="/" title="Orçamento Express" />
-      <div className="space-y-4 px-4 pt-4">
-        <div>
-          <h1 className="text-2xl font-extrabold">Orçamento Express</h1>
-          <p className="muted text-sm">Conte o que precisa. Até 3 parceiros credenciados chamam você no WhatsApp. Grátis para moradores.</p>
-        </div>
+      <Header back="/" />
+      <PageIntro eyebrow="Orçamento Express" title={<>Descreva o serviço.<br />Nós cuidamos do resto.</>}>Até três parceiros selecionados entram em contato pelo WhatsApp. Cortesia aos moradores.</PageIntro>
+      <div className="px-4 pt-8">
         <OrcamentoForm categorias={categorias} categoriaInicial={categoria ? Number(categoria) : undefined} />
       </div>
     </>

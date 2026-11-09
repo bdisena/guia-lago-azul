@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Categoria } from "@/lib/types";
 import { useCondo } from "./CondoProvider";
 import { publicRpc } from "@/lib/rpc";
+import { IconCheck } from "./Icons";
 
 export function OrcamentoForm({ categorias, categoriaInicial }: { categorias: Categoria[]; categoriaInicial?: number }) {
   const { condominios, atual, escolher } = useCondo();
@@ -30,20 +31,20 @@ export function OrcamentoForm({ categorias, categoriaInicial }: { categorias: Ca
 
   if (estado === "ok")
     return (
-      <div className="card p-6 text-center">
-        <p className="text-4xl">✅</p>
-        <h2 className="mt-2 text-xl font-bold">Pedido recebido!</h2>
-        <p className="muted mt-1">Vamos enviar sua demanda para até 3 parceiros credenciados. Eles chamam você no WhatsApp, normalmente no mesmo dia.</p>
-        <Link href="/" className="btn btn-primary mt-4">Voltar ao início</Link>
+      <div className="fade-up border border-[var(--ink)] p-7">
+        <div className="grid h-12 w-12 place-items-center bg-[var(--ink)] text-white"><IconCheck /></div>
+        <h2 className="mt-5 font-display text-[30px] leading-tight">Pedido recebido.</h2>
+        <p className="muted mt-2 text-[14.5px] leading-relaxed">Sua solicitação será encaminhada a até três parceiros selecionados. O contato acontece pelo WhatsApp, normalmente no mesmo dia.</p>
+        <Link href="/" className="btn btn-primary mt-6 w-full">Voltar ao Guia</Link>
       </div>
     );
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-6">
       <Field label="Que tipo de serviço?">
         <select name="categoria" className="input" defaultValue={categoriaInicial ?? ""}>
           <option value="">Não sei / outro</option>
-          {categorias.map((c) => <option key={c.id} value={c.id}>{c.icone} {c.nome}</option>)}
+          {categorias.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
         </select>
       </Field>
       <Field label="O que você precisa?">
@@ -62,12 +63,12 @@ export function OrcamentoForm({ categorias, categoriaInicial }: { categorias: Ca
           {condominios.map((c) => <option key={c.slug} value={c.slug}>{c.nome}</option>)}
         </select>
       </Field>
-      <label className="flex items-start gap-2 text-sm">
-        <input type="checkbox" required className="mt-1 h-4 w-4 accent-lago-600" />
+      <label className="flex items-start gap-3 text-[13px] leading-relaxed">
+        <input type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 accent-black" />
         <span className="muted">Autorizo o envio do meu nome, condomínio e WhatsApp para até 3 prestadores parceiros entrarem em contato sobre este pedido.</span>
       </label>
-      {estado === "erro" && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{erro}</p>}
-      <button disabled={estado === "enviando"} className="btn btn-primary w-full py-3.5 text-lg disabled:opacity-60">
+      {estado === "erro" && <p className="border-l-2 border-red-700 bg-red-50 p-3 text-sm text-red-800">{erro}</p>}
+      <button disabled={estado === "enviando"} className="btn btn-primary w-full !py-4 disabled:opacity-60">
         {estado === "enviando" ? "Enviando…" : "Enviar pedido"}
       </button>
     </form>
@@ -77,7 +78,7 @@ export function OrcamentoForm({ categorias, categoriaInicial }: { categorias: Ca
 export function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-semibold">{label}</span>
+      <span className="eyebrow block">{label}</span>
       {children}
     </label>
   );
